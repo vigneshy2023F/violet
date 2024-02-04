@@ -31,7 +31,13 @@ function getListings(){
   }, 2000);
 //setData == console.log
   //fetch("http://localhost:8080/tenants", {mode: 'no-cors'}).then((response)=>response.json()).then((json)=>setData(json));
-  fetch("http://localhost:8080/tenants", {method: "GET"}).then((response)=>response.json()).then((json)=>console.log(json));
+  fetch("http://localhost:8080/tenants", {method: "GET"})
+    .then((response)=>response.json())
+    .then((json)=>{
+      console.log(json);
+      console.log(json._embedded.tenantList);
+      setData(json._embedded.tenantList);
+    });
   //fetch("https://jsonplaceholder.typicode.com/posts").then((response)=>response.json()).then((json)=>setData(json));
 }
 
@@ -46,6 +52,9 @@ function getListings(){
 
 function getLogin(){
   alert("sign in");
+}
+function expand(){
+  
 }
 
   return (
@@ -62,9 +71,7 @@ function getLogin(){
   {/* <button className="btn" onClick={getTenants}>For Leasers: Get Tenants</button> */}
   
   {loading ? <h2 className="mt-2">LOADING...</h2> :  ( <ul>{data.map((post)=>(<li className="alert alert-info" key={post.id}>
-    <div><div className="mar-1">{post.id}</div></div>
-    <h3>{post.title}</h3>
-    <p className="text-gray">{post.body}</p>
+    {post.id}{post.name}
   </li>))}</ul>)}
 
   
